@@ -12,4 +12,4 @@ This codelab is going to be split into two parts
 ## Stuff to do now
 * Install python if you haven't already
 
-[Part 1: What is a Neural Network]()
+[Part 1: What is a Neural Network](https://github.com/OKStateACM/NeuralNetworkCodelab/blob/master/Part%201.md)

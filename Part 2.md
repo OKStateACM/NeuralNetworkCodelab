@@ -224,4 +224,4 @@ print(model.evaluate(x_test, y_test))
 
 Run it and see what happens!
 
-[Part 3: Where to Go From Here]()
+[Part 3: Where to Go From Here](https://github.com/OKStateACM/NeuralNetworkCodelab/blob/master/Part%203.md)

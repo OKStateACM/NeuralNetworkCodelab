@@ -2,4 +2,4 @@
 
 This section will be filled in later, most of this will be explained in a short lecture style
 
-[Part 2: Using a Neural Network in Code]()
+[Part 2: Using a Neural Network in Code](https://github.com/OKStateACM/NeuralNetworkCodelab/blob/master/Part%202.md)
