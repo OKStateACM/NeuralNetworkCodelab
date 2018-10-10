@@ -119,3 +119,109 @@ x_test = x_test/255.
 y_train = np.eye(10)[y_train]
 y_test = np.eye(10)[y_test]
 ```
+
+## Writing the Neural Network
+
+Now comes the fun part! Now that we have the data, we can start constructing a neural network. We will use a python library called **keras** to do this.
+
+Keras is a high level api for creating neural networks. It abstracts away a lot of the details.
+
+### Layers
+
+Keras has a concept called **Layers** that represent each layer in a neural network. Remember that each layer is a collection of neurons. For our purposes, we want to use a **Dense Layer**. We can use one like this
+
+```python
+Dense(units=32, activation='relu')
+```
+
+This creates a dense layer with 32 neurons that uses a relu activation function
+
+### Model
+
+We stack multiple layers together in a **model**. Add this to your code
+
+```python
+from keras.layers import Dense
+from keras.models import Sequential
+from keras.optimizers import Adam
+
+def create_model():
+    model = Sequential()
+
+    model.add(Dense(units=100, activation='relu', input_dim=784)) # hidden layer
+    model.add(Dense(units=10, activation='softmax')) # output layer
+
+    return model
+
+model = create_model()
+```
+
+This creates a model that has one hidden layer and one output layer. The hidden layer has 100 units and uses a relu activation function. The output layer has 10 outputs (1 for each possible digit) and uses the softmax activation function. The softmax activation function makes it so that the probabilities in the vector add to 1.
+
+### Compiling and Training the Model
+
+Now that we've created the model, we need to **compile** it, this just tells the model how it is going to be trained as well as a few other things. Add this to your code
+
+```python
+model.compile(loss='categorical_crossentropy', optimizer=Adam(lr=0.001), metrics=['accuracy'])
+```
+
+The ```loss='categorical_crossentropy'``` bit tells the model that the way it will measure loss is by using the categorical_crossentropy function. Don't worry too much about what this is specifically, just know that it is a loss function that measures how wrong the predictions are.
+
+The ```optimizer=Adam(lr=0.001)``` bit just tells the model to use the Adam optimizer with a learning rate of 0.001. Again, don't worry too much about the specifics, just know that the optimizer will update the parameters of the model to minimize the loss
+
+### Training the Model
+
+Ok, so we now have the data and we have a model. Let's train the model using the data! Add this to your code
+
+```python
+model.fit(x_train, y_train)
+```
+
+And finally, let's write some code to evaluate how we did on our test set
+
+```python
+print(model.evaluate(x_test, y_test))
+```
+
+## The final code
+
+Your final code should look something like this
+
+```python
+from keras.datasets import mnist
+import matplotlib.pyplot as plt
+import numpy as np
+
+(x_train, y_train), (x_test, y_test) = mnist.load_data()
+
+x_train = x_train.reshape([-1, x_train.shape[1] * x_train.shape[2]])
+x_test = x_test.reshape([-1, x_test.shape[1]*x_test.shape[2]])
+
+x_train = x_train/255.
+x_test = x_test/255.
+
+y_train = np.eye(10)[y_train]
+y_test = np.eye(10)[y_test]
+
+from keras.layers import Dense
+from keras.models import Sequential
+from keras.optimizers import Adam
+
+def create_model():
+    model = Sequential()
+
+    model.add(Dense(units=100, activation='relu', input_dim=784)) # hidden layer
+    model.add(Dense(units=10, activation='softmax')) # output layer
+
+    return model
+
+model = create_model()
+model.compile(loss='categorical_crossentropy', optimizer=Adam(lr=0.001), metrics=['accuracy'])
+model.fit(x_train, y_train)
+print(model.evaluate(x_test, y_test))
+```
+
+Run it and see what happens!
+
+[Part 3: Where to Go From Here]()
